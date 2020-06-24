@@ -25,6 +25,8 @@ public class client_chat extends javax.swing.JFrame {
      */
     public client_chat() {
         initComponents();
+        this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -43,22 +45,32 @@ public class client_chat extends javax.swing.JFrame {
         send_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setForeground(new java.awt.Color(0, 0, 0));
+        setResizable(false);
 
+        msg_area.setEditable(false);
+        msg_area.setBackground(new java.awt.Color(153, 255, 255));
         msg_area.setColumns(20);
         msg_area.setRows(5);
+        msg_area.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jScrollPane1.setViewportView(msg_area);
 
-        jLabel1.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
-        jLabel1.setText("Client");
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabel1.setText("... Client ...");
 
+        txt_area.setToolTipText("Enter your Message");
+        txt_area.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 5));
         txt_area.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_areaActionPerformed(evt);
             }
         });
 
+        send_btn.setBackground(new java.awt.Color(102, 255, 102));
         send_btn.setFont(new java.awt.Font("Lato", 1, 18)); // NOI18N
         send_btn.setText("Send");
+        send_btn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         send_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 send_btnActionPerformed(evt);
@@ -81,7 +93,7 @@ public class client_chat extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(146, 146, 146))
+                .addGap(157, 157, 157))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,7 +105,7 @@ public class client_chat extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_area, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(send_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
+                    .addComponent(send_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -107,11 +119,14 @@ public class client_chat extends javax.swing.JFrame {
     private void send_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send_btnActionPerformed
         // TODO add your handling code here:
         
+        //show my message
         try {
             String txt = "";
             txt = txt_area.getText();
             dout.writeUTF(txt);
             txt_area.setText("");
+            msg_area.setText(msg_area.getText() + "\n \t\t me : " + txt);
+
         } catch (Exception e) {
             //Handle Exception
         }
@@ -154,16 +169,283 @@ public class client_chat extends javax.swing.JFrame {
         });
         
         try {
+            
             String msg = "";
             s = new Socket("127.0.0.1", 1201); //ip address is localhost because server runs on same machine
             dis = new DataInputStream(s.getInputStream());
             dout = new DataOutputStream(s.getOutputStream());
 
             while (!msg.equals("exit")) {
+                
                 msg = dis.readUTF();
-                msg_area.setText(msg_area.getText() + "\n Server : " + msg);
+                
+                String Newstr=" "; 
+                String Newdcrypt=" "; 
+
+                // encrypt the message
+                    try {        
+
+                       for (int i=0;i<msg.length();i++)  
+                       {  
+
+                         char ch=Character.toLowerCase(msg.charAt(i));
+
+                            switch (ch)  
+                            {  
+                                case 'a':  
+                                    Newstr=Newstr+"1";  
+                                    break;  
+                                case 'b':  
+                                    Newstr=Newstr+"2";  
+                                    break;  
+                                case 'c':  
+                                    Newstr=Newstr+"3";  
+                                    break;  
+                                case 'd':  
+                                    Newstr=Newstr+"4";  
+                                    break;  
+                                case 'e':  
+                                    Newstr=Newstr+"5";  
+                                    break;  
+                                case 'f':  
+                                    Newstr=Newstr+"6";  
+                                    break;  
+                                case 'g':  
+                                    Newstr=Newstr+"7";  
+                                    break;  
+                                case 'h':  
+                                    Newstr=Newstr+"8";  
+                                    break;  
+                                case 'i':  
+                                    Newstr=Newstr+"9";  
+                                    break;  
+                                case 'j':  
+                                    Newstr=Newstr+"!";  
+                                    break;  
+                                case 'k':  
+                                    Newstr=Newstr+"@";  
+                                    break;  
+                                case 'l':  
+                                    Newstr=Newstr+"#";  
+                                    break;  
+                                case 'm':  
+                                    Newstr=Newstr+"$";  
+                                    break;  
+                                case 'n':  
+                                    Newstr=Newstr+"%";  
+                                    break;  
+                                case 'o':  
+                                    Newstr=Newstr+"^";  
+                                    break;  
+                                case 'p':  
+                                    Newstr=Newstr+"&";  
+                                    break;  
+                                case 'q':  
+                                    Newstr=Newstr+"*";  
+                                    break;  
+                                case 'r':  
+                                    Newstr=Newstr+"(";  
+                                    break;  
+                                case 's' :  
+                                    Newstr=Newstr+")";  
+                                    break;  
+                                case 't':  
+                                    Newstr=Newstr+"-";  
+                                    break;  
+                                case 'u':  
+                                    Newstr=Newstr+"_";  
+                                    break;  
+                                case 'v' :  
+                                    Newstr=Newstr+"+";  
+                                    break;  
+                                case 'w':  
+                                    Newstr=Newstr+"=";  
+                                    break;  
+                                case 'x' :  
+                                    Newstr=Newstr+"{";  
+                                    break;  
+                                case 'y':  
+                                    Newstr=Newstr+"[";  
+                                    break;  
+                                case 'z' :  
+                                    Newstr=Newstr+"}";  
+                                    break;                              
+                                case '1':  
+                                    Newstr=Newstr+"~";  
+                                    break;  
+                                case '2':  
+                                    Newstr=Newstr+"]";  
+                                    break;  
+                                case '3':  
+                                    Newstr=Newstr+"|";  
+                                    break;  
+                                case '4':  
+                                    Newstr = Newstr+"<";  
+                                    break;  
+                                case '5':  
+                                    Newstr = Newstr+":";  
+                                    break;  
+                                case '6':  
+                                    Newstr = Newstr+";";  
+                                    break;  
+                                case '7':  
+                                    Newstr = Newstr+",";  
+                                    break;  
+                                case '8' :  
+                                    Newstr= Newstr+">";  
+                                    break;  
+                                case '9':  
+                                    Newstr = Newstr+".";  
+                                    break;  
+                                case '0':  
+                                    Newstr = Newstr+"?";  
+                                    break;  
+                                 default:  
+                                    Newstr=Newstr+" ";  
+                                    break;  
+                                }                            
+
+                       }
+                       
+                        
+                       String NewEcrypt = Newstr;
+ 
+                       // decrypt the message which is encrypted
+                       for (int i=0;i<NewEcrypt.length();i++)  
+                       {  
+
+                         char chd=Character.toLowerCase(NewEcrypt.charAt(i));
+
+                            switch (chd)  
+                            {  
+                                case '1':  
+                                    Newdcrypt=Newdcrypt+"a";  
+                                    break;  
+                                case '2':  
+                                    Newdcrypt=Newdcrypt+"b";  
+                                    break;  
+                                case '3':  
+                                    Newdcrypt=Newdcrypt+"c";  
+                                    break;  
+                                case '4':  
+                                    Newdcrypt=Newdcrypt+"d";  
+                                    break;  
+                                case '5':  
+                                    Newdcrypt=Newdcrypt+"e";  
+                                    break;  
+                                case '6':  
+                                    Newdcrypt=Newdcrypt+"f";  
+                                    break;  
+                                case '7':  
+                                    Newdcrypt=Newdcrypt+"g";  
+                                    break;  
+                                case '8':  
+                                    Newdcrypt=Newdcrypt+"h";  
+                                    break;  
+                                case '9':  
+                                    Newdcrypt=Newdcrypt+"i";  
+                                    break;  
+                                case '!':  
+                                    Newdcrypt=Newdcrypt+"j";  
+                                    break;  
+                                case '@':  
+                                    Newdcrypt=Newdcrypt+"k";  
+                                    break;  
+                                case '#':  
+                                    Newdcrypt=Newdcrypt+"l";  
+                                    break;  
+                                case '$':  
+                                    Newdcrypt=Newdcrypt+"m";  
+                                    break;  
+                                case '%':  
+                                    Newdcrypt=Newdcrypt+"n";  
+                                    break;  
+                                case '^':  
+                                    Newdcrypt=Newdcrypt+"o";  
+                                    break;  
+                                case '&':  
+                                    Newdcrypt=Newdcrypt+"p";  
+                                    break;  
+                                case '*':  
+                                    Newdcrypt=Newdcrypt+"q";  
+                                    break;  
+                                case '(':  
+                                    Newdcrypt=Newdcrypt+"r";  
+                                    break;  
+                                case ')' :  
+                                    Newdcrypt=Newdcrypt+"s";  
+                                    break;  
+                                case '-':  
+                                    Newdcrypt=Newdcrypt+"t";  
+                                    break;  
+                                case '_':  
+                                    Newdcrypt=Newdcrypt+"u";  
+                                    break;  
+                                case '+' :  
+                                    Newdcrypt=Newdcrypt+"v";  
+                                    break;  
+                                case '=':  
+                                    Newdcrypt=Newdcrypt+"w";  
+                                    break;  
+                                case '{' :  
+                                    Newdcrypt=Newdcrypt+"x";  
+                                    break;  
+                                case '[':  
+                                    Newdcrypt=Newdcrypt+"y";  
+                                    break;  
+                                case '}' :  
+                                    Newdcrypt=Newdcrypt+"z";  
+                                    break;                              
+                                case '~':  
+                                    Newdcrypt=Newdcrypt+"1";  
+                                    break;  
+                                case ']':  
+                                    Newdcrypt=Newdcrypt+"2";  
+                                    break;  
+                                case '|':  
+                                    Newdcrypt=Newdcrypt+"3";  
+                                    break;  
+                                case '<':  
+                                    Newdcrypt = Newdcrypt+"4";  
+                                    break;  
+                                case ':':  
+                                    Newdcrypt = Newdcrypt+"5";  
+                                    break;  
+                                case ';':  
+                                    Newdcrypt = Newdcrypt+"6";  
+                                    break;  
+                                case ',':  
+                                    Newdcrypt = Newdcrypt+"7";  
+                                    break;  
+                                case '>' :  
+                                    Newdcrypt= Newdcrypt+"8";  
+                                    break;  
+                                case '.':  
+                                    Newdcrypt = Newdcrypt+"9";  
+                                    break;  
+                                case '?':  
+                                    Newdcrypt = Newdcrypt+"0";  
+                                    break;  
+                                 default:  
+                                    Newdcrypt=Newdcrypt+" ";  
+                                    break;  
+                                }  
+                            }
+                       
+                        // print the message in jtextarea
+                        msg_area.setText(msg_area.getText() + "\n Server :" + Newdcrypt);
+
+                      
+                    }  
+                    catch(Exception ioe)  
+                    {  
+                       ioe.printStackTrace();  
+                    }
+
+                }
             }
-        } catch (Exception e) {
+        //catch the exception
+        catch (Exception e) {
             //Exception Handling
         }
     }
