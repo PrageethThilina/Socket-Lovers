@@ -110,6 +110,7 @@ public class client_chat extends javax.swing.JFrame {
         try {
             String txt = "";
             txt = txt_area.getText();
+            msg_area.setText(msg_area.getText() + "\n \t\t me : " + txt);
             dout.writeUTF(txt);
             txt_area.setText("");
         } catch (Exception e) {
