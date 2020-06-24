@@ -129,11 +129,7 @@ public class server_chat extends javax.swing.JFrame {
             txt = txt_area.getText();
             dout.writeUTF(txt);
             txt_area.setText("");
-<<<<<<< HEAD
             msg_area.setText(msg_area.getText() + "\n \t\t Server : " + txt);
-=======
-            msg_area.setText(msg_area.getText() + "\n \t\t me : " + txt);
->>>>>>> ead9831249fb2cc5cb8431f57c70eff83aca3ae5
             
         } catch (Exception e) {
             //Handle Exception
